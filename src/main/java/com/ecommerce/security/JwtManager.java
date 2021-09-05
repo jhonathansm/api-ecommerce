@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.ecommerce.constant.SecurityConstant;
+import com.ecommerce.domain.Usuario;
 import com.ecommerce.dto.UserLoginResponsedDto;
 
 import io.jsonwebtoken.Claims;
@@ -16,7 +17,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtManager {
 
-	public com.ecommerce.dto.UserLoginResponsedDto createdToken(String email, List<String> roles) {
+	public UserLoginResponsedDto createdToken(String email, List<String> roles, Usuario username) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, SecurityConstant.JWT_EXP_DAYS);
 		String jwt = Jwts.builder().setSubject(email)
@@ -25,7 +26,7 @@ public class JwtManager {
 				.signWith(SignatureAlgorithm.HS512, SecurityConstant.API_KEY.getBytes())
 				.compact();
 		Long expireIn = calendar.getTimeInMillis();
-		return new UserLoginResponsedDto(jwt, expireIn, SecurityConstant.JWT_PROVIDER);
+		return new UserLoginResponsedDto(jwt, expireIn, SecurityConstant.JWT_PROVIDER, username);
 	}
 	
 	public Claims parseToken(String jwt) throws JwtException {

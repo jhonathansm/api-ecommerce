@@ -2,6 +2,8 @@ package com.ecommerce.dto;
 
 import java.io.Serializable;
 
+import com.ecommerce.domain.Usuario;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -17,4 +19,5 @@ public class UserLoginResponsedDto implements Serializable {
 	private String token;
 	private Long expireIn;
 	private String tokenProvider;
+	private Usuario username;
 }

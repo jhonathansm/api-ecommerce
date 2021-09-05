@@ -41,6 +41,13 @@ public class UserService implements UserDetailsService {
 		return result.orElseThrow(() -> new NotFoundException("Usuário não encontrado com este ID = " + id));
 	}
 	
+	public Usuario getByEmail(String email) {
+		Optional<Usuario> result = userRepository.findByEmail(email);
+		System.out.println(result);
+		return result.orElseThrow(() -> new NotFoundException("Usuário não encontrado com este E-mail = " + email));
+
+	}
+	
 	public Usuario login(String email, String password) {
 		password = HashUtil.getSecureHash(password);
 		Optional<Usuario> userResult = userRepository.login(email, password);

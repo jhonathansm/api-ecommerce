@@ -70,10 +70,11 @@ public class UserResource {
 				(User) auths.getPrincipal();
 		
 		String email = userSpring.getUsername();
+		Usuario username = userService.getByEmail(email);
 		List<String> roles = userSpring.getAuthorities().stream().map(authority -> authority.getAuthority())
 				.collect(Collectors.toList());
 		
-		return ResponseEntity.ok(jwtManager.createdToken(email, roles));
+		return ResponseEntity.ok(jwtManager.createdToken(email, roles, username));
 	}
 	
 }
